@@ -18,7 +18,7 @@
 - 주장: 본 적 있는 것을 눈앞에서 알아보는 일은 아무 단서 없이 기억에서 떠올리는 일보다 빠르고 덜 틀린다.
 - 어떻게 알았나: 같은 것을 외우게 한 뒤 알아보기 시험과 떠올리기 시험을 견준 기억 연구에서 알아보기 성적이 꾸준히 높았다고 알려져 있다 (비교 연구의 원문은 아직 확인하지 못함). 그림은 한 번 보고 바로 시험하면 거의 다 알아본다 (Shepard 1967, 2차 확인).
 - 디자인에 주는 뜻: 사용자가 외워서 가져와야 하는 것(이름 · 값 · 명령 · 앞 단계의 내용)을 화면이 들고 있으면 틀림과 망설임이 준다 (PR-001).
-- 한계: 알아볼 후보가 많아지면 훑는 비용이 생긴다 (FA-002 · TN-001). 단서가 외울 때와 다르게 주어지면 알아보기도 실패할 수 있다 (출처 미확인).
+- 한계: 알아볼 후보가 많아지면 훑는 비용이 생긴다 (FA-002 · TN-001). 단서가 외울 때와 다르게 주어지면 알아보기도 실패할 수 있다 (Tulving & Thomson 1973, 2차).
 
 ## 강의
 
@@ -42,4 +42,5 @@
 
 - Shepard, R. N. (1967). Recognition memory for words, sentences, and pictures. *Journal of Verbal Learning and Verbal Behavior*, 6(1), 156–163. — 그림 수백 장을 한 번 본 뒤 바로 둘 중 고르는 알아보기 시험에서 거의 다 맞혔다. 알아보기만 시험했고 떠올리기와 견주지는 않았다. 2차 인용으로만 확인했고 원문은 열어 보지 않았다. 시간이 지난 뒤의 성적과 정확한 수치는 원문을 본 뒤 적는다.
 - 알아보기와 떠올리기를 직접 견준 연구: 출처 미확인. 읽어 볼 후보 — Mandler, G., Pearlstone, Z., & Koopmans, H. S. (1969). Effects of organization and semantic similarity on recall and recognition. *Journal of Verbal Learning and Verbal Behavior*, 8(3), 410–423 (서지만 확인, 내용 미확인). 확인되면 근거를 A로 올릴 후보.
+- Tulving, E., & Thomson, D. M. (1973). Encoding specificity and retrieval processes in episodic memory. *Psychological Review*, 80(5), 352–373. — 외울 때의 단서와 꺼낼 때의 단서가 다르면 알아보기도 실패한다(알아보기 실패). 서지 확인(2차). 한계의 근거.
 - Nielsen, J. 10 Usability Heuristics for User Interface Design. nngroup.com/articles/ten-usability-heuristics/ — 6번 'Recognition rather than recall'. 디자인 쪽 합의. 확인함 (2026-11-11).

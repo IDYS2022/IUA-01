@@ -15,7 +15,7 @@ INDEX = os.path.join(KN, '_index')
 TYPES = {'FA': '사실', 'PR': '원리', 'TN': '긴장', 'ST': '상황', 'CS': '사례', 'LN': '렌즈'}
 ORDER = ['LN', 'PR', 'ST', 'TN', 'FA', 'CS']                                # find 출력 순서 = 꺼내는 순서
 ROOT_OK = {'FA': set(), 'PR': {'FA'}, 'TN': {'PR'}, 'ST': {'PR', 'TN'}, 'CS': {'ST', 'PR', 'TN'}, 'LN': {'PR', 'TN', 'ST'}}
-REQUIRED = ['번호', '종류', '제목', '한 줄', '영역', '신호', '뿌리', '긴장', '근거', '상태', '고친 날']
+REQUIRED = ['번호', '종류', '제목', '한 줄', '영역', '신호', '뿌리', '긴장', '근거', '확인', '상태', '고친 날']   # 확인은 비워도 된다
 CARD = {'FA': ['주장', '어떻게 알았나', '디자인에 주는 뜻', '한계'],
         'PR': ['주장', '적용되는 때', '약해지는 때', '요구로 바꾸면', '확인 질문'],
         'TN': ['맞서는 둘', '이기는 조건', '지는 쪽을 살리는 법', '확인 질문'],
@@ -23,7 +23,7 @@ CARD = {'FA': ['주장', '어떻게 알았나', '디자인에 주는 뜻', '한�
         'CS': ['맥락', '핵심', '결정', '결과', '배운 것'],
         'LN': ['먼저 볼 것', '보통 지배하는 원리', '자주 틀리는 곳', '되물을 질문']}
 GRADES = ['A', 'B', 'C', 'D']
-CONFIRM = {'A': ['원문'], 'B': ['원문', '2차']}   # 근거 등급이 요구하는 확인 상태. C · D는 묻지 않는다
+CONFIRM = {'A': ['원문', '2차'], 'B': ['원문', '2차']}   # A·B는 확인한 출처가 있어야 한다 (원문 또는 2차). C · D는 묻지 않는다
 STATES = ['초안', '검토됨', '확립', '폐기']
 SHELVES = ['사람', '일과 맥락', '정보 구조', '시각 구조', '상호작용', '흐름', '내용과 말', '시간과 움직임',
            '접근성과 포용', '기기와 매체', '신뢰와 윤리', '복잡한 시스템']
@@ -213,7 +213,7 @@ def check():
             confirmed = [s for s in u['sources'] if '미확인' not in s]
             if not confirmed:
                 p.append(f'근거 {h["근거"]}인데 확인한 출처가 없다 (### 출처에 "- " 줄)')
-        if h.get('확인') and h['확인'] not in ('원문', '2차', '미확인'):
+        if h.get('확인') and h['확인'] not in ('원문', '2차', '미확인', '–', '-'):
             p.append(f'확인({h["확인"]})은 원문 · 2차 · 미확인 중 하나')
         # 부품 이름이 요구에 들어갔나 (IUA는 값을 말하지 않는다)
         for k in ('요구로 바꾸면', '한다', '이뤄져야 할 것'):
@@ -270,7 +270,7 @@ def index():
         out.append(f'### {sig}' + (f' — {meta["뜻"]}' if meta['뜻'] else ''))
         out += [f'- {fmt(k, units)}' for k in hits] if hits else ['- (아직 없음)']
         out.append('')
-    open(os.path.join(INDEX, 'signals.md'), 'w', encoding='utf-8').write('\n'.join(out))
+    open(os.path.join(INDEX, 'signals.md'), 'w', encoding='utf-8', newline='\n').write('\n'.join(out))
 
     # map.md — 왜 사슬
     kids = children_of(units)
@@ -293,7 +293,7 @@ def index():
     orphans = [k for k in units if k not in seen and kind(k) != 'TN']
     if orphans:
         out += ['', '## 사슬에 들지 않은 단위 (뿌리가 없거나 끊김)', ''] + [f'- {fmt(k, units, TYPES[kind(k)])}' for k in sorted(orphans)]
-    open(os.path.join(INDEX, 'map.md'), 'w', encoding='utf-8').write('\n'.join(out) + '\n')
+    open(os.path.join(INDEX, 'map.md'), 'w', encoding='utf-8', newline='\n').write('\n'.join(out) + '\n')
 
     # tensions.md — 긴장 표
     out = [NOTE, '# 긴장 표 — 원리 둘이 맞설 때', '', '| 번호 | 맞서는 둘 | 이기는 조건 | 근거 | 상태 |', '|---|---|---|---|---|']
@@ -301,7 +301,7 @@ def index():
         u = units[tn]
         pair = ' ↔ '.join(f'`{r}` {units[r]["head"].get("제목", "")}' if r in units else r for r in u['head'].get('뿌리', []))
         out.append(f'| `{tn}` | {pair} | {u["card_fields"].get("이기는 조건", "")} | {u["head"].get("근거", "")} | {u["head"].get("상태", "")} |')
-    open(os.path.join(INDEX, 'tensions.md'), 'w', encoding='utf-8').write('\n'.join(out) + '\n')
+    open(os.path.join(INDEX, 'tensions.md'), 'w', encoding='utf-8', newline='\n').write('\n'.join(out) + '\n')
     print(f'색인 3개 다시 만듦 · 단위 {len(units)}장 · 신호 {len(vocab)}개')
 
 
@@ -346,7 +346,7 @@ def find(args):
             cur = kind(uid)
             print(f'\n[{TYPES[cur]} {cur}]')
         h = units[uid]['head']
-        print(f'  {uid} · {one_line(units[uid])} · 겹침 {n} ({"·".join(hit)}) · 근거 {h.get("근거", "?")} · {h.get("상태", "?")}')
+        print(f'  {uid} · {one_line(units[uid])} · 겹침 {n} ({"·".join(hit)}) · 근거 {h.get("근거", "?")} · 확인 {h.get("확인") or "–"} · {h.get("상태", "?")}')
     if not rows:
         print('맞는 단위가 없다. 사실(FA)에서 추론하고 "추론 · D"를 붙인다.')
 
@@ -359,7 +359,7 @@ def card(ids):
             print(f'{uid}: 없는 번호')
             continue
         h = u['head']
-        print(f'# {uid} {h.get("제목", "")}  [{h.get("종류", "")} · {h.get("영역", "")} · 근거 {h.get("근거", "")} · {h.get("상태", "")}]')
+        print(f'# {uid} {h.get("제목", "")}  [{h.get("종류", "")} · {h.get("영역", "")} · 근거 {h.get("근거", "")} · 확인 {h.get("확인") or "–"} · {h.get("상태", "")}]')
         print(f'한 줄: {one_line(u)}')
         print(f'신호: {", ".join(h.get("신호", []))} · 뿌리: {", ".join(h.get("뿌리", [])) or "없음"} · 긴장: {", ".join(h.get("긴장", [])) or "없음"}')
         for line in u['card']:
