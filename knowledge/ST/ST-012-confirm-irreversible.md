@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 I8 (원출처 ui-ux-pro-max-skill U35, MIT). EDA 기본 상식은 AlertDialog로 푼다. EDA 판단 절차서 5단 위험 행동 흐름과 같다.
+- ui-ux-pro-max-skill U35 (MIT). PR-014 · TN-003의 흐름과 같다.

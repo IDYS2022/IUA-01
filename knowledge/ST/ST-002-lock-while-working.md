@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 S1 (원출처 ui-ux-pro-max-skill U32, MIT). EDA 기본 상식은 Button loading · Spinner로 푼다.
+- ui-ux-pro-max-skill U32 (MIT).

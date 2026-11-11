@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 I7 (원출처 ui-ux-pro-max-skill U107 A32, MIT).
+- ui-ux-pro-max-skill U107 A32 (MIT).

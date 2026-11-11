@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 I4 (원출처 ui-ux-pro-max-skill U57 U63 A17, MIT). 구현은 HTML의 type · inputmode.
+- ui-ux-pro-max-skill U57 U63 A17 (MIT). 구현은 HTML의 type · inputmode.

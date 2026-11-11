@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 N7 (원출처 ui-ux-pro-max-skill A12, MIT).
+- ui-ux-pro-max-skill A12 (MIT).

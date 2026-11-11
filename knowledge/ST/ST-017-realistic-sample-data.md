@@ -37,4 +37,4 @@
 
 ### 출처
 
-- EDA 기본 상식 C5 (원출처 ui-ux-pro-max-skill U87, MIT).
+- ui-ux-pro-max-skill U87 (MIT).

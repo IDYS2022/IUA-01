@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 A5 (원출처 ui-ux-pro-max-skill U118, MIT). 구현은 aria-live.
+- ui-ux-pro-max-skill U118 (MIT). 구현은 aria-live.

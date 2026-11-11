@@ -33,5 +33,5 @@
 
 ### 출처
 
-- EDA 기본 상식 N8 (원출처 ui-ux-pro-max-skill U108, MIT). EDA 기본 상식은 Carousel의 이전 · 다음 · 멈춤으로 푼다.
+- ui-ux-pro-max-skill U108 (MIT).
 - WCAG 2.2 성공 기준 2.2.2 Pause, Stop, Hide (Level A): 저절로 시작해 5초 넘게 움직이는 내용은 멈추거나 숨길 수 있어야 한다. 2차 확인 (2026-11-11, 체크리스트 여러 곳).

@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 N6 (원출처 ui-ux-pro-max-skill U2 U17 U100, MIT). 구현은 scroll-padding.
+- ui-ux-pro-max-skill U2 U17 U100 (MIT). 구현은 scroll-padding.

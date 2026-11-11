@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 N1 (원출처 ui-ux-pro-max-skill U3, MIT). EDA 기본 상식은 메뉴 항목의 isActive로 푼다.
+- ui-ux-pro-max-skill U3 (MIT).

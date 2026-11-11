@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 I3 (원출처 ui-ux-pro-max-skill U56 A16, MIT).
+- ui-ux-pro-max-skill U56 A16 (MIT).

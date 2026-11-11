@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 N2 (원출처 ui-ux-pro-max-skill U4 U5 A9, MIT).
+- ui-ux-pro-max-skill U4 U5 A9 (MIT).

@@ -29,4 +29,4 @@
 
 ### 출처
 
-- EDA 기본 상식 C2 (원출처 ui-ux-pro-max-skill U84 U113, MIT). EDA 기본 상식은 Tooltip · 펼치기로 푼다.
+- ui-ux-pro-max-skill U84 U113 (MIT).

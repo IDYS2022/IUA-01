@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 S8 (원출처 ui-ux-pro-max-skill U92 U93, MIT).
+- ui-ux-pro-max-skill U92 U93 (MIT).

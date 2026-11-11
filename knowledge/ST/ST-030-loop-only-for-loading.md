@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 M2 (원출처 ui-ux-pro-max-skill U12 A25, MIT).
+- ui-ux-pro-max-skill U12 A25 (MIT).

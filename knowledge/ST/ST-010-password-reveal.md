@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 I5 (원출처 ui-ux-pro-max-skill U60 A19, MIT).
+- ui-ux-pro-max-skill U60 A19 (MIT).

@@ -37,5 +37,5 @@
 
 ### 출처
 
-- EDA 기본 상식 A6 (원출처 ui-ux-pro-max-skill U67 A26 A27, MIT).
+- ui-ux-pro-max-skill U67 A26 A27 (MIT).
 - WCAG 2.2 성공 기준 1.4.4 Resize Text (Level AA): 글자를 200%까지 키워도 내용과 기능을 잃지 않는다. 2차 확인 (2026-11-11).

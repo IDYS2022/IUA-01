@@ -33,5 +33,5 @@
 
 ### 출처
 
-- EDA 기본 상식 A7 (원출처 ui-ux-pro-max-skill U112, MIT).
+- ui-ux-pro-max-skill U112 (MIT).
 - WCAG 2.2 성공 기준 1.4.12 Text Spacing (Level AA): 줄 간격 · 문단 간격 · 글자 간격 · 단어 간격을 넓혀도 내용과 기능을 잃지 않는다. 2차 확인 (2026-11-11).

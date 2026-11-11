@@ -33,5 +33,5 @@
 
 ### 출처
 
-- EDA 기본 상식 A1 (원출처 ui-ux-pro-max-skill U40 A1, MIT). EDA 기본 상식은 Button의 aria-label로 푼다.
+- ui-ux-pro-max-skill U40 A1 (MIT).
 - WCAG 2.2 성공 기준 4.1.2 Name, Role, Value (Level A): 모든 조작 요소는 프로그램이 읽을 수 있는 이름 · 역할 · 값을 가진다. 1.1.1 Non-text Content (Level A)도 걸린다. 2차 확인 (2026-11-11).

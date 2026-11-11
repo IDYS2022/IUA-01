@@ -41,4 +41,4 @@
 
 - 뿌리 사실의 문헌은 FA-010 · FA-007.
 - Nielsen, J. 10 Usability Heuristics, 9번 'Help users recognize, diagnose, and recover from errors' — 오류 메시지는 쉬운 말로(코드 없이), 문제를 정확히 가리키고, 해결책을 건설적으로 제안한다. 번호와 요지를 검색으로 확인, 본문은 열어 보지 않음 → 2차 (nngroup.com/articles/ten-usability-heuristics/).
-- EDA 자체 검수 '글' 줄의 "오류 문구 = 무엇이 틀렸나 + 고치는 법"이 같은 규칙이다.
+- 이디스의 글 점검 규칙 '오류 문구 = 무엇이 틀렸나 + 고치는 법'이 같은 규칙이다.

@@ -31,6 +31,8 @@ MAX_CARD_LINES = 12      # 임시. 시험에서 고친다
 MAX_ONE_LINE = 60        # 한 줄 글자 수
 SIGNALS_MIN, SIGNALS_MAX = 3, 6
 PROMOTE = 3              # 같은 추론이 사례 이 수에서 반복 → 상황 후보 · 초안이 사례 이 수에서 맞음 → 확립 후보
+TRACES = [r'(?<![A-Za-z])EDA(?![A-Za-z])', r'(?<![A-Za-z])UPA(?![A-Za-z])', '금지 표', '금지 #', '채점표', '꼬리표 #', 'default 가이드', '판단 일지', '판단 절차서', '기본 상식', 'AIGC', 'COLLAB', 'agent/', 'DESIGN\\.md',
+          '26DEAF01', '스타일 default', 'ScheduleTable', 'DateStrip', 'WorkspaceLayout', 'WorkspaceBrand', 'BannerCarousel']
 ID_RE = re.compile(r'^(FA|PR|TN|ST|CS|LN)-(\d{3})$')
 FILE_RE = re.compile(r'^(FA|PR|TN|ST|CS|LN)-(\d{3})-[a-z0-9-]+\.md$')
 
@@ -220,7 +222,17 @@ def check():
             v = u['card_fields'].get(k, '')
             if re.search(r'\b(Button|Select|Dialog|Tabs|Card|Input|Popover|Sheet|Drawer|Carousel|Table)\b', v):
                 p.append(f'"{k}" 칸에 부품 이름이 있다. 요구는 "무엇이 이뤄져야 하나"로')
+        # IUA는 혼자 선다: 특정 에이전트 · 저장소의 흔적이 없어야 한다
+        body = open(u['path'], encoding='utf-8').read()
+        for pat in TRACES:
+            if re.search(pat, body):
+                p.append(f'다른 에이전트 · 저장소의 흔적 "{pat}" (knowledge/_format.md 글 쓰는 규칙)')
         problems += [f'{uid}: {x}' for x in p]
+    for f in ('_format.md', '_vocab.md'):
+        body = open(os.path.join(KN, f), encoding='utf-8').read()
+        for pat in TRACES:
+            if re.search(pat, body):
+                problems.append(f'{f}: 다른 에이전트 · 저장소의 흔적 "{pat}"')
 
     # 올릴 후보 — 세는 일만 한다. 올리는 결정은 사람이
     kids = children_of(units)

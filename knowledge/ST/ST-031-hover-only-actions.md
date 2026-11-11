@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 M5 (원출처 ui-ux-pro-max-skill U11 U116, MIT).
+- ui-ux-pro-max-skill U11 U116 (MIT).

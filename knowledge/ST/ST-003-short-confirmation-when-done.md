@@ -37,4 +37,4 @@
 
 ### 출처
 
-- EDA 기본 상식 S2 (원출처 ui-ux-pro-max-skill U34 U82 U83, MIT). EDA 기본 상식은 Toast · 체크 표시로 푼다.
+- ui-ux-pro-max-skill U34 U82 U83 (MIT).

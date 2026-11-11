@@ -33,5 +33,5 @@
 
 ### 출처
 
-- EDA 기본 상식 I1 (원출처 ui-ux-pro-max-skill U54 A2, MIT). EDA 기본 상식은 Label로 푼다.
+- ui-ux-pro-max-skill U54 A2 (MIT).
 - WCAG 2.2 성공 기준 3.3.2 Labels or Instructions (Level A): 입력이 필요한 곳에는 이름이나 안내가 있어야 한다. 2차 확인 (2026-11-11, 체크리스트 여러 곳).

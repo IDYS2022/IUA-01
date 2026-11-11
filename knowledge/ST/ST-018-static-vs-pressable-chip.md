@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 C7 (원출처 ui-ux-pro-max-skill U114 U117, MIT). EDA 기본 상식은 Badge(정적) · Button(누름)으로 가른다.
+- ui-ux-pro-max-skill U114 U117 (MIT).

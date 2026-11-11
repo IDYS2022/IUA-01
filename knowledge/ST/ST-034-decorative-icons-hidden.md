@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 A2 (원출처 ui-ux-pro-max-skill A5, MIT). 구현은 aria-hidden.
+- ui-ux-pro-max-skill A5 (MIT). 구현은 aria-hidden.

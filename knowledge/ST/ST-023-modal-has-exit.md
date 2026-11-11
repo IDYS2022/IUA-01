@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 N5 (원출처 ui-ux-pro-max-skill A11, MIT). EDA 기본 상식은 Dialog · Sheet · Drawer의 닫기로 푼다.
+- ui-ux-pro-max-skill A11 (MIT).

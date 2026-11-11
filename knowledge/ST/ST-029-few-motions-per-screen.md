@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 M1 (원출처 ui-ux-pro-max-skill U7, MIT). 값은 EDA DS의 움직임 토큰.
+- ui-ux-pro-max-skill U7 (MIT). 값은 그리는 쪽의 디자인 시스템이 정한다.

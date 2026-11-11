@@ -33,4 +33,4 @@
 
 ### 출처
 
-- EDA 기본 상식 N10 (원출처 ui-ux-pro-max-skill U105, MIT).
+- ui-ux-pro-max-skill U105 (MIT).
