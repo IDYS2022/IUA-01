@@ -10,7 +10,7 @@ UIUX 분석만 하는 에이전트. 복잡한 화면일수록 원리로 핵심�
 ### Claude Code 플러그인으로
 
 ```
-/plugin marketplace add IDYS2022/iua
+/plugin marketplace add IDYS2022/IUA-01
 /plugin install iua@iua
 ```
 
