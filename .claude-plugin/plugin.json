@@ -1,6 +1,6 @@
 {
   "name": "iua",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "IUA (IDYS Advanced Reasoning UI/UX Agent) — UIUX 분석만 하는 에이전트. 맥락 카드를 받아 원리로 핵심을 짚고 설계 요구서 · 진단서를 낸다. 지식은 사실 · 원리 · 긴장 · 상황 · 사례 · 렌즈로 쌓고 신호로 찾는다.",
   "author": {
     "name": "IDYS"
