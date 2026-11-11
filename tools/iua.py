@@ -124,6 +124,45 @@ def load_vocab():
     return vocab, syn
 
 
+def load_frameworks():
+    """_frameworks.md: '## 체계 이름' 아래 '출처:' 한 줄과 '| 키 | 항목 | 원어 | 단위 |' 표."""
+    fw, cur = collections.OrderedDict(), None
+    p = os.path.join(KN, '_frameworks.md')
+    if not os.path.exists(p):
+        return fw
+    for line in open(p, encoding='utf-8'):
+        line = line.rstrip('\n')
+        if line.startswith('## '):
+            cur = line[3:].strip()
+            fw[cur] = {'source': '', 'items': []}
+        elif cur and line.startswith('출처:'):
+            fw[cur]['source'] = line[3:].strip()
+        elif cur and line.startswith('|'):
+            cells = [c.strip() for c in line.strip().strip('|').split('|')]
+            if len(cells) < 4 or cells[0] in ('키', '') or set(cells[0]) <= set('-'):
+                continue
+            fw[cur]['items'].append({'key': cells[0], 'name': cells[1], 'orig': cells[2],
+                                     'units': [x.strip() for x in cells[3].split('·') if x.strip()]})
+    return fw
+
+
+def load_glossary():
+    """_glossary.md: '| 용어 | 원어 | 뜻 | 출처 | 단위 |' 표."""
+    rows = []
+    p = os.path.join(KN, '_glossary.md')
+    if not os.path.exists(p):
+        return rows
+    for line in open(p, encoding='utf-8'):
+        if not line.startswith('|'):
+            continue
+        cells = [c.strip() for c in line.strip().strip('|').split('|')]
+        if len(cells) < 5 or cells[0] in ('용어', '') or set(cells[0]) <= set('-'):
+            continue
+        rows.append({'term': cells[0], 'orig': cells[1], 'mean': cells[2], 'src': cells[3],
+                     'units': [x.strip() for x in cells[4].split('·') if x.strip()]})
+    return rows
+
+
 def children_of(units):
     kids = collections.defaultdict(list)
     for uid, u in units.items():
@@ -228,6 +267,32 @@ def check():
             if re.search(pat, body):
                 p.append(f'다른 에이전트 · 저장소의 흔적 "{pat}" (knowledge/_format.md 글 쓰는 규칙)')
         problems += [f'{uid}: {x}' for x in p]
+    warnings = []
+    # 체계 목록 · 용어집이 가리키는 번호가 있어야 한다
+    seen_keys = set()
+    for name, f in load_frameworks().items():
+        if not f['source']:
+            problems.append(f'_frameworks.md: "{name}"에 출처 줄이 없다')
+        for it in f['items']:
+            if it['key'] in seen_keys:
+                problems.append(f'_frameworks.md: 키 {it["key"]} 중복')
+            seen_keys.add(it['key'])
+            for uid in it['units']:
+                if uid not in units:
+                    problems.append(f'_frameworks.md: {it["key"]}가 없는 번호 {uid}를 가리킨다')
+    for g in load_glossary():
+        if not g['src']:
+            problems.append(f'_glossary.md: "{g["term"]}"에 출처가 없다')
+        elif g['units'] and g['units'][0] in units:
+            import re as _re
+            names = _re.findall(r'[A-Z][A-Za-z\-]+', g['src'].split('·')[0])
+            src_text = units[g['units'][0]]['sources']
+            src_text = ' '.join(src_text) if isinstance(src_text, list) else str(src_text)
+            if names and not any(n in src_text for n in names[:1]):
+                warnings.append(f'_glossary.md: "{g["term"]}"의 출처({names[0]})가 정의 단위 {g["units"][0]}의 출처 절에 없다')
+        for uid in g['units']:
+            if uid not in units:
+                problems.append(f'_glossary.md: "{g["term"]}"가 없는 번호 {uid}를 가리킨다')
     for f in ('_format.md', '_vocab.md'):
         body = open(os.path.join(KN, f), encoding='utf-8').read()
         for pat in TRACES:
@@ -247,6 +312,8 @@ def check():
         print('문제  ' + line)
     for line in hints:
         print('후보  ' + line)
+    for line in warnings:
+        print('경고  ' + line)
     if not problems:
         by = collections.Counter(kind(k) for k in units)
         print('문제 없음 · 단위 ' + str(len(units)) + '장 (' + ' · '.join(f'{t} {by.get(t, 0)}' for t in TYPES) + ')')
@@ -314,10 +381,49 @@ def index():
         pair = ' ↔ '.join(f'`{r}` {units[r]["head"].get("제목", "")}' if r in units else r for r in u['head'].get('뿌리', []))
         out.append(f'| `{tn}` | {pair} | {u["card_fields"].get("이기는 조건", "")} | {u["head"].get("근거", "")} | {u["head"].get("상태", "")} |')
     open(os.path.join(INDEX, 'tensions.md'), 'w', encoding='utf-8', newline='\n').write('\n'.join(out) + '\n')
-    print(f'색인 3개 다시 만듦 · 단위 {len(units)}장 · 신호 {len(vocab)}개')
+
+    # frameworks.md — 체계(휴리스틱 · 원리 묶음) → 항목 → 단위
+    fw = load_frameworks()
+    out = [NOTE.replace('원본은 각 단위의 머리표', '원본은 knowledge/_frameworks.md'),
+           '# 체계 색인 — 잘 알려진 휴리스틱 · 원리 묶음에서 IUA 지식으로', '',
+           '분석할 때 "이 판단은 어느 체계의 어느 항목에 기대나"를 밝히는 지도. 항목마다 가장 바로 다루는 단위가 맨 앞이다.', '']
+    covered = set()
+    for name, f in fw.items():
+        out += [f'## {name}', '', f'출처: {f["source"]}', '']
+        for it in f['items']:
+            out.append(f'### {it["key"]} — {it["name"]} ({it["orig"]})')
+            for uid in it['units']:
+                covered.add(uid)
+                out.append(f'- {fmt(uid, units)}' if uid in units else f'- `{uid}` (아직 없는 번호)')
+            out.append('')
+    loose = sorted(k for k in units if kind(k) == 'PR' and k not in covered)
+    if loose:
+        out += ['## 어느 체계에도 잇지 않은 원리', '', '체계 밖의 원리도 쓸모가 있다. 다만 근거를 밝힐 때 체계 이름 대신 그 원리의 출처를 댄다.', '']
+        out += [f'- {fmt(k, units)}' for k in loose]
+    open(os.path.join(INDEX, 'frameworks.md'), 'w', encoding='utf-8', newline='\n').write('\n'.join(out) + '\n')
+    print(f'색인 4개 다시 만듦 · 단위 {len(units)}장 · 신호 {len(vocab)}개 · 체계 {len(fw)}개 · 항목 {sum(len(f["items"]) for f in fw.values())}개')
 
 
 # ── find · card ───────────────────────────────────────────────────────────────
+
+def short_source(src):
+    """'Nielsen, J. (1994, 2024 검토). 제목 … · 확인: 원문 (…)' → 'Nielsen 1994, 2024 검토 · 확인 원문'"""
+    import re as _re
+    m = _re.match(r'\s*([^,(]+?)[, ].*?\(([^)]*)\)', src)
+    who = (m.group(1).strip() + ' ' + m.group(2).strip()) if m else src[:40]
+    c = _re.search(r'확인:\s*([^ (·]+)', src)
+    return who + (f' · 확인 {c.group(1)}' if c else '')
+
+
+def unit_frames(fw):
+    """단위 번호 → 그 단위가 걸린 체계 키들"""
+    out = collections.defaultdict(list)
+    for f in fw.values():
+        for it in f['items']:
+            for uid in it['units']:
+                out[uid].append(it['key'])
+    return out
+
 
 def find(args):
     units, _ = load_units()
@@ -363,8 +469,80 @@ def find(args):
         print('맞는 단위가 없다. 사실(FA)에서 추론하고 "추론 · D"를 붙인다.')
 
 
+def find_text(words):
+    """본문 글자 검색: 신호가 안 겹쳐도 낱말로 찾는다 (단위 · 체계 목록 · 용어집)."""
+    if not words:
+        print('찾을 낱말이 없다. 예: find --text 시그니파이어')
+        return
+    units, _ = load_units()
+    pats = [w.lower() for w in words]
+    rows = []
+    for uid, u in units.items():
+        lines = open(u['path'], encoding='utf-8').read().split('\n')
+        hits = [l.strip() for l in lines if all(p in l.lower() for p in pats)]
+        if hits:
+            rows.append((uid, hits))
+    defining = {g['units'][0] for g in load_glossary() if g['units'] and all(x in (g['term'] + ' ' + g['orig']).lower() for x in pats)}
+    order = {t: i for i, t in enumerate(ORDER)}
+    rows.sort(key=lambda r: (r[0] not in defining, -len(r[1]), order[kind(r[0])], r[0]))
+    print('낱말: ' + ' · '.join(words) + f' · 단위 {len(rows)}장' + (' (구절은 따옴표로: "확인 창")' if len(words) > 1 else ''))
+    for uid, hits in rows:
+        print(f'  {uid} · {one_line(units[uid])}' + ('  ← 용어집의 정의 단위' if uid in defining else ''))
+        for h in hits[:2]:
+            print(f'      └ {h[:150]}')
+    for f in ('_frameworks.md', '_glossary.md'):
+        p = os.path.join(KN, f)
+        if not os.path.exists(p):
+            continue
+        for l in open(p, encoding='utf-8').read().split('\n'):
+            if l.startswith('|') and all(x in l.lower() for x in pats):
+                print(f'  [{f}] {l.strip()[:170]}')
+    if not rows:
+        print('맞는 단위가 없다. 다른 낱말이나 신호(find)로 찾고, 없으면 사실(FA)에서 추론하고 "추론 · D"를 붙인다.')
+
+
+def frame(keys):
+    """체계 목록: 키 없이 부르면 체계와 키 목록, 키를 주면 그 항목의 단위 (한 줄)."""
+    units, _ = load_units()
+    fw = load_frameworks()
+    if not keys:
+        for name, f in fw.items():
+            print(f'## {name}  ({short_source(f["source"])})')
+            print('   ' + ' · '.join(it['key'] for it in f['items']))
+        return
+    heads = {it['key'].split('-')[0] for f in fw.values() for it in f['items']}
+    for key in keys:
+        # 정확한 키 (닐슨-5) 또는 체계 머리 (닐슨 → 그 체계의 모든 항목)
+        found = [(name, f, it) for name, f in fw.items() for it in f['items']
+                 if it['key'] == key or it['key'].split('-')[0] == key]
+        if found and key in heads:
+            # 체계 머리 (닐슨): 훑기용 — 출처 한 번, 항목마다 첫 단위 한 줄
+            name, f, _ = found[0]
+            print(f'## {name} — 출처: {short_source(f["source"])}  (항목의 모든 단위: frame <키>)')
+            for _, _, it in found:
+                first = it['units'][0] if it['units'] else None
+                line = f'{first} · {one_line(units[first])}' if first in units else '(단위 없음)'
+                more = f' (+{len(it["units"]) - 1})' if len(it['units']) > 1 else ''
+                print(f'  {it["key"]} {it["name"]} → {line}{more}')
+            continue
+        if not found:
+            print(f'{key}: 체계 목록에 없는 키 (frame 으로 목록을 본다)')
+            continue
+        for name, f, it in found:
+            print(f'# {it["key"]} {it["name"]} ({it["orig"]}) — {name}')
+            print(f'  출처: {f["source"]}')
+            for uid in it['units']:
+                if uid in units:
+                    h = units[uid]['head']
+                    print(f'  {uid} · {one_line(units[uid])} · 근거 {h.get("근거", "?")} · 확인 {h.get("확인") or "–"} · {h.get("상태", "?")}')
+                else:
+                    print(f'  {uid} · (아직 없는 번호)')
+            print()
+
+
 def card(ids):
     units, _ = load_units()
+    uf = unit_frames(load_frameworks())
     for uid in ids:
         u = units.get(uid)
         if not u:
@@ -374,6 +552,7 @@ def card(ids):
         print(f'# {uid} {h.get("제목", "")}  [{h.get("종류", "")} · {h.get("영역", "")} · 근거 {h.get("근거", "")} · 확인 {h.get("확인") or "–"} · {h.get("상태", "")}]')
         print(f'한 줄: {one_line(u)}')
         print(f'신호: {", ".join(h.get("신호", []))} · 뿌리: {", ".join(h.get("뿌리", [])) or "없음"} · 긴장: {", ".join(h.get("긴장", [])) or "없음"}')
+        print(f'체계: {" · ".join(uf.get(uid, [])) or "없음"}')
         for line in u['card']:
             print(line)
         print()
@@ -385,8 +564,12 @@ def main():
         sys.exit(check())
     if cmd == 'index':
         index()
+    elif cmd == 'find' and '--text' in sys.argv[2:]:
+        find_text([a for a in sys.argv[2:] if a != '--text'])
     elif cmd == 'find':
         find(sys.argv[2:])
+    elif cmd == 'frame':
+        frame(sys.argv[2:])
     elif cmd == 'card':
         card(sys.argv[2:])
     else:

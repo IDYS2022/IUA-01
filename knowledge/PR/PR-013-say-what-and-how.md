@@ -8,7 +8,7 @@
 뿌리: [FA-010, FA-007]
 긴장: [TN-008]
 근거: B
-확인: 2차
+확인: 원문
 상태: 초안
 고친 날: 2026-11-11
 ---
@@ -40,5 +40,5 @@
 ### 출처
 
 - 뿌리 사실의 문헌은 FA-010 · FA-007.
-- Nielsen, J. 10 Usability Heuristics, 9번 'Help users recognize, diagnose, and recover from errors' — 오류 메시지는 쉬운 말로(코드 없이), 문제를 정확히 가리키고, 해결책을 건설적으로 제안한다. 번호와 요지를 검색으로 확인, 본문은 열어 보지 않음 → 2차 (nngroup.com/articles/ten-usability-heuristics/).
+- Nielsen, J. 10 Usability Heuristics, 9번 'Help users recognize, diagnose, and recover from errors' — 오류 메시지는 쉬운 말로(코드 없이), 문제를 정확히 가리키고, 해결책을 건설적으로 제안한다. nngroup.com/articles/ten-usability-heuristics/ (2026-11-11 원문 확인)
 - 이디스의 글 점검 규칙 '오류 문구 = 무엇이 틀렸나 + 고치는 법'이 같은 규칙이다.

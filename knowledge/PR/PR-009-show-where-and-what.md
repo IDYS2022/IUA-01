@@ -8,7 +8,7 @@
 뿌리: [FA-003]
 긴장: []
 근거: B
-확인: 2차
+확인: 원문
 상태: 초안
 고친 날: 2026-11-11
 ---
@@ -46,4 +46,4 @@
 ### 출처
 
 - 뿌리 사실의 문헌은 FA-003.
-- Nielsen, J. 10 Usability Heuristics for User Interface Design, 1번 'Visibility of system status' — 적절한 피드백으로 사용자가 지금 무슨 일이 일어나는지 늘 알게 한다 (nngroup.com/articles/ten-usability-heuristics/). 번호와 요지를 검색으로 확인, 본문은 열어 보지 않음 → 2차.
+- Nielsen, J. 10 Usability Heuristics for User Interface Design, 1번 'Visibility of system status' — 적절한 피드백으로 사용자가 지금 무슨 일이 일어나는지 늘 알게 한다 (nngroup.com/articles/ten-usability-heuristics/). (2026-11-11 원문 확인)

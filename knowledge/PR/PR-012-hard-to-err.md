@@ -8,7 +8,7 @@
 뿌리: [FA-010, FA-005, FA-012]
 긴장: []
 근거: B
-확인: 2차
+확인: 원문
 상태: 초안
 고친 날: 2026-11-11
 ---
@@ -42,4 +42,4 @@
 ### 출처
 
 - 뿌리 사실의 문헌은 FA-010 (Norman · Reason의 헛손질/오판 구분) · FA-005 · FA-012.
-- Nielsen, J. 10 Usability Heuristics, 5번 'Error prevention' — 오류 메시지는 두 번째 방어선이고, 가장 좋은 디자인은 문제가 생기지 않게 막는다. 번호와 요지를 검색으로 확인, 본문은 열어 보지 않음 → 2차 (nngroup.com/articles/ten-usability-heuristics/).
+- Nielsen, J. 10 Usability Heuristics, 5번 'Error prevention' — 오류 메시지는 두 번째 방어선이고, 가장 좋은 디자인은 문제가 생기지 않게 막는다. nngroup.com/articles/ten-usability-heuristics/ (2026-11-11 원문 확인)

@@ -8,7 +8,7 @@
 뿌리: [FA-008, FA-001]
 긴장: [TN-003, TN-007]
 근거: B
-확인: 2차
+확인: 원문
 상태: 초안
 고친 날: 2026-11-11
 ---
@@ -39,5 +39,6 @@
 
 ### 출처
 
-- Nielsen, J. 10 Usability Heuristics for User Interface Design, 7번 'Flexibility and efficiency of use' — 숙련자를 위한 지름길(accelerator)은 처음 쓰는 사람에게는 보이지 않으면서 숙련자의 반복 행동을 빠르게 한다. 메뉴 옆에 단축키를 적는 것이 그 길. nngroup.com/articles/flexibility-efficiency-heuristic/ 와 ten-usability-heuristics/ — 번호와 요지를 검색으로 확인, 본문은 열어 보지 않음 → 2차.
+- Nielsen, J. 10 Usability Heuristics for User Interface Design, 7번 'Flexibility and efficiency of use'. nngroup.com/articles/ten-usability-heuristics/ — 처음 쓰는 사람에게는 감춰진 지름길(shortcuts)이 숙련자의 상호작용을 빠르게 해 두 사람을 다 맞춘다 · 자주 하는 행동을 사용자가 맞추게 한다 · 키보드 단축키 · 터치 몸짓 같은 지름길(accelerator)을 둔다. (2026-11-11 원문 확인)
+- Nielsen Norman Group, Flexibility and Efficiency of Use 해설 글 (nngroup.com/articles/flexibility-efficiency-heuristic/) — 열어 보지 않았다. 이 단위의 근거는 위 원문 페이지만으로 선다. '메뉴 옆에 단축키를 적는다'는 예는 우리 정리다.
 - 뿌리 사실의 문헌은 FA-008 · FA-001.
