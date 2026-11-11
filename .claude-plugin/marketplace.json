@@ -1,0 +1,16 @@
+{
+  "name": "iua",
+  "owner": {
+    "name": "IDYS"
+  },
+  "metadata": {
+    "description": "IUA (IDYS Advanced Reasoning UI/UX Agent) 플러그인 하나를 담은 마켓플레이스."
+  },
+  "plugins": [
+    {
+      "name": "iua",
+      "source": "./",
+      "description": "UIUX 분석 에이전트 IUA. 맥락 카드를 받아 설계 요구서 · 진단서를 낸다. 에이전트 iua:iua, 스킬 /iua:consult."
+    }
+  ]
+}
