@@ -4,6 +4,7 @@
 #   python3 tools/iua.py index               knowledge/_index/ 다시 만들기 (signals · map · tensions)
 #   python3 tools/iua.py find <신호> …       신호로 단위 찾기. 한 줄씩, 겹친 신호 많은 순. --type PR 로 종류 제한
 #   python3 tools/iua.py card <번호> …       카드만 출력 (강의는 내지 않는다)
+# find · find --text는 양상 후보(_candidates.md)에서 맞는 줄을 3줄까지만 '선례'로 덧붙인다 (근거가 아니다).
 # 다른 패키지를 쓰지 않는다 (표준 라이브러리만).
 import os, re, sys, collections
 
@@ -31,6 +32,10 @@ MAX_CARD_LINES = 12      # 임시. 시험에서 고친다
 MAX_ONE_LINE = 60        # 한 줄 글자 수
 SIGNALS_MIN, SIGNALS_MAX = 3, 6
 PROMOTE = 3              # 같은 추론이 사례 이 수에서 반복 → 상황 후보 · 초안이 사례 이 수에서 맞음 → 확립 후보
+MAX_CAND_ROWS = 40       # 양상 후보 줄 수 한도. 통째로 읽혀도 읽는 양에 천장이 있게
+MAX_CAND_SHOW = 3        # find가 한 번에 보이는 선례 줄 수. 파일이 커져도 출력은 늘지 않는다
+CAND_KINDS = ['양상', '빈칸']
+CAND_RE = re.compile(r'^C-[0-9]{3}$')
 TRACES = [r'(?<![A-Za-z])EDA(?![A-Za-z])', r'(?<![A-Za-z])UPA(?![A-Za-z])', '금지 표', '금지 #', '채점표', '꼬리표 #', 'default 가이드', '판단 일지', '판단 절차서', '기본 상식', 'AIGC', 'COLLAB', 'agent/', 'DESIGN\\.md',
           '26DEAF01', '스타일 default', 'ScheduleTable', 'DateStrip', 'WorkspaceLayout', 'WorkspaceBrand', 'BannerCarousel']
 ID_RE = re.compile(r'^(FA|PR|TN|ST|CS|LN)-(\d{3})$')
@@ -161,6 +166,39 @@ def load_glossary():
         rows.append({'term': cells[0], 'orig': cells[1], 'mean': cells[2], 'src': cells[3],
                      'units': [x.strip() for x in cells[4].split('·') if x.strip()]})
     return rows
+
+
+def load_candidates():
+    """_candidates.md: '| 번호 | 종류 | 한 줄 | 신호 | 처음 | 사례 |' 표. 정식 지식이 아닌 선례 · 빈칸."""
+    rows = []
+    p = os.path.join(KN, '_candidates.md')
+    if not os.path.exists(p):
+        return rows
+    for line in open(p, encoding='utf-8'):
+        if not line.startswith('|'):
+            continue
+        cells = [c.strip() for c in line.strip().strip('|').split('|')]
+        if len(cells) < 6 or cells[0] in ('번호', '') or set(cells[0]) <= set('-'):
+            continue
+        none = ('–', '-', '')
+        rows.append({'id': cells[0], 'kind': cells[1], 'line': cells[2],
+                     'signals': [] if cells[3] in none else [s.strip() for s in cells[3].split(',') if s.strip()],
+                     'date': cells[4],
+                     'cases': [] if cells[5] in none else [x.strip() for x in cells[5].split('·') if x.strip()]})
+    return rows
+
+
+def show_candidates(scored):
+    """맞는 양상 후보를 가장 잘 맞는 몇 줄만 보인다. scored: [(점수, 후보)]"""
+    if not scored:
+        return
+    scored.sort(key=lambda r: (-r[0], -len(r[1]['cases']), r[1]['id']))
+    print()
+    print('[선례 C — 참고만 한다. 근거가 아니다 (추론 · D)]')
+    for _, c in scored[:MAX_CAND_SHOW]:
+        print(f'  {c["id"]} · {c["kind"]} · {c["line"]} · 사례 {len(c["cases"])}건 · {c["date"]}')
+    if len(scored) > MAX_CAND_SHOW:
+        print(f'  (맞는 후보 {len(scored) - MAX_CAND_SHOW}줄은 보이지 않았다. 신호나 낱말을 좁혀 다시 찾는다)')
 
 
 def children_of(units):
@@ -308,6 +346,39 @@ def check():
             hints.append(f'{uid}: 추론(D)이 사례 {len(cs)}건에서 반복 → 근거를 올릴 후보 (사람이 결정)')
         if u['head'].get('상태') == '초안' and len(cs) >= PROMOTE:
             hints.append(f'{uid}: 초안인데 사례 {len(cs)}건이 가리킴 → 확립 후보 (사람이 결정)')
+    # 양상 후보 — 정식 지식이 아니다. 줄 수와 길이에 한도를 둔다
+    cands, seen_c = load_candidates(), set()
+    for c in cands:
+        tag = f'_candidates.md: {c["id"]}'
+        if not CAND_RE.match(c['id']):
+            problems.append(f'{tag} 번호가 C-000 꼴이 아니다')
+        if c['id'] in seen_c:
+            problems.append(f'{tag} 번호 중복')
+        seen_c.add(c['id'])
+        if c['kind'] not in CAND_KINDS:
+            problems.append(f'{tag} 종류 "{c["kind"]}" (가능: {" · ".join(CAND_KINDS)})')
+        if not c['line'] or len(c['line']) > MAX_ONE_LINE:
+            problems.append(f'{tag} 한 줄이 {len(c["line"])}자 (한도 {MAX_ONE_LINE})')
+        if len(c['signals']) > SIGNALS_MAX:
+            problems.append(f'{tag} 신호가 {len(c["signals"])}개 (한도 {SIGNALS_MAX})')
+        for s in c['signals']:
+            if s not in vocab:
+                problems.append(f'{tag} 신호 "{s}"가 _vocab.md에 없다')
+        if not re.match(r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$', c['date']):
+            problems.append(f'{tag} 처음 칸이 날짜(YYYY-MM-DD)가 아니다')
+        for uid in c['cases']:
+            if uid not in units or kind(uid) != 'CS':
+                problems.append(f'{tag} 사례 칸의 {uid}가 없는 번호이거나 사례가 아니다')
+        if len(c['cases']) >= PROMOTE:
+            hints.append(f'{c["id"]}: 선례가 사례 {len(c["cases"])}건에서 맞음 → 정식 단위로 올릴 후보 (사람이 결정)')
+    if len(cands) > MAX_CAND_ROWS:
+        problems.append(f'_candidates.md: {len(cands)}줄 (한도 {MAX_CAND_ROWS}). 정식 단위로 올리거나 다시 나오지 않은 줄을 지운다')
+    cp = os.path.join(KN, '_candidates.md')
+    if os.path.exists(cp):
+        body = open(cp, encoding='utf-8').read()
+        for pat in TRACES:
+            if re.search(pat, body):
+                problems.append(f'_candidates.md: 다른 에이전트 · 저장소의 흔적 "{pat}"')
     for line in problems:
         print('문제  ' + line)
     for line in hints:
@@ -316,7 +387,8 @@ def check():
         print('경고  ' + line)
     if not problems:
         by = collections.Counter(kind(k) for k in units)
-        print('문제 없음 · 단위 ' + str(len(units)) + '장 (' + ' · '.join(f'{t} {by.get(t, 0)}' for t in TYPES) + ')')
+        print('문제 없음 · 단위 ' + str(len(units)) + '장 (' + ' · '.join(f'{t} {by.get(t, 0)}' for t in TYPES) + ')'
+              + f' · 양상 후보 {len(cands)}줄 (한도 {MAX_CAND_ROWS})')
     return 1 if problems else 0
 
 
@@ -458,15 +530,22 @@ def find(args):
             rows.append((len(hit), uid, hit))
     order = {t: i for i, t in enumerate(ORDER)}
     rows.sort(key=lambda r: (order[kind(r[1])], -r[0], r[1]))
+    if any(n == 1 for n, _, _ in rows):
+        print('(신호 하나만 겹친 단위는 번호와 한 줄만 보인다. 근거 · 확인 · 상태는 card로)')
     cur = None
     for n, uid, hit in rows:
         if kind(uid) != cur:
             cur = kind(uid)
             print(f'\n[{TYPES[cur]} {cur}]')
         h = units[uid]['head']
+        if n == 1:
+            print(f'  {uid} · {one_line(units[uid])}')
+            continue
         print(f'  {uid} · {one_line(units[uid])} · 겹침 {n} ({"·".join(hit)}) · 근거 {h.get("근거", "?")} · 확인 {h.get("확인") or "–"} · {h.get("상태", "?")}')
     if not rows:
         print('맞는 단위가 없다. 사실(FA)에서 추론하고 "추론 · D"를 붙인다.')
+    scored = [(len([s for s in c['signals'] if s in asked]), c) for c in load_candidates()]
+    show_candidates([x for x in scored if x[0]])
 
 
 def find_text(words):
@@ -499,6 +578,8 @@ def find_text(words):
                 print(f'  [{f}] {l.strip()[:170]}')
     if not rows:
         print('맞는 단위가 없다. 다른 낱말이나 신호(find)로 찾고, 없으면 사실(FA)에서 추론하고 "추론 · D"를 붙인다.')
+    show_candidates([(1, c) for c in load_candidates()
+                     if all(x in (c['line'] + ' ' + ' '.join(c['signals']) + ' ' + c['kind']).lower() for x in pats)])
 
 
 def frame(keys):
