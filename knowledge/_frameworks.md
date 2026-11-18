@@ -85,3 +85,50 @@ UIUX에서 '상식'으로 불리는 원리 묶음을 항목 하나씩 IUA 단위
 | 평가-노먼렌즈 | 노먼 원리 7로 화면을 본다 | — | LN-010 |
 | 평가-슈나이더만렌즈 | 8대 황금률로 화면을 본다 | — | LN-011 |
 | 평가-게슈탈트렌즈 | 묶음 지각으로 화면의 덩어리를 본다 | — | LN-012 |
+| 평가-생성AI렌즈 | 생성형 AI 화면을 겪는 순서로 보고, 지침 18과 원칙 6으로 훑는다 | — | LN-015 |
+
+## 사람-AI 상호작용 지침 18
+
+AI가 들어간 제품을 놓고 만든 지침. 네 단계로 묶인다: 처음에 · 쓰는 동안 · AI가 틀렸을 때 · 시간이 지나며. 2019년에 나온 것이라 생성하는 화면에만 있는 성질(결과의 달라짐 · 함께 만들기)은 다음 절의 원칙 6으로 메운다.
+
+출처: Amershi, S., Weld, D., Vorvoreanu, M., Fourney, A., Nushi, B., Collisson, P., Suh, J., Iqbal, S., Bennett, P., Inkpen, K., Teevan, J., Kikin-Gil, R., & Horvitz, E. (2019). Guidelines for Human-AI Interaction. CHI 2019. 지침 18개의 이름: Microsoft HAX Design Library, microsoft.com/en-us/haxtoolkit/library/ (네 단계의 이름은 같은 도구 모음의 지침 소개 쪽, haxtoolkit/ai-guidelines/) · 확인: 원문 (2026-11-18) — 이름 18개와 네 단계의 이름, 논문 초록(디자인 실무자 49명이 AI 제품 20개에 대 보았다)을 확인. 항목마다 어느 단계인지는 논문 표를 열지 못해 적지 않았다
+
+| 키 | 항목 | 원어 | 단위 |
+|---|---|---|---|
+| HAX-1 | 무엇을 할 수 있는지 분명히 한다 | Make clear what the system can do | PR-035 · ST-043 |
+| HAX-2 | 얼마나 잘하는지 분명히 한다 | Make clear how well the system can do what it can do | PR-035 · PR-039 |
+| HAX-3 | 맥락에 맞는 때에 나선다 | Time services based on context | PR-034 · PR-033 |
+| HAX-4 | 맥락에 맞는 정보를 보인다 | Show contextually relevant information | ST-043 |
+| HAX-5 | 사회의 관례에 맞춘다 | Match relevant social norms |  |
+| HAX-6 | 사회적 치우침을 줄인다 | Mitigate social biases |  |
+| HAX-7 | 쉽게 부를 수 있게 한다 | Support efficient invocation | PR-028 · PR-026 |
+| HAX-8 | 쉽게 치우거나 무시할 수 있게 한다 | Support efficient dismissal | PR-037 · PR-033 |
+| HAX-9 | 쉽게 고칠 수 있게 한다 | Support efficient correction | PR-037 · PR-014 |
+| HAX-10 | 확신이 없으면 범위를 좁힌다 | Scope services when in doubt | ST-042 · PR-037 · TN-009 |
+| HAX-11 | 왜 그렇게 했는지 분명히 한다 | Make clear why the system did what it did | PR-039 · PR-031 |
+| HAX-12 | 최근 상호작용을 기억한다 | Remember recent interactions | PR-037 · PR-038 |
+| HAX-13 | 사용자의 행동에서 배운다 | Learn from user behavior |  |
+| HAX-14 | 조심스럽게 바꾸고 맞춘다 | Update and adapt cautiously | PR-033 |
+| HAX-15 | 잘게 나눈 피드백을 받는다 | Encourage granular feedback | PR-037 |
+| HAX-16 | 사용자의 행동이 AI의 앞으로의 동작에 미치는 결과를 알린다 | Convey the consequences of user actions | PR-031 |
+| HAX-17 | 전체를 조절할 수 있게 한다 | Provide global controls |  |
+| HAX-18 | 바뀐 것을 알린다 | Notify users about changes | PR-035 · PR-034 |
+
+아직 단위가 없는 항목: HAX-5 · HAX-6 · HAX-13 · HAX-17. 사회의 관례와 치우침, 사용자에게 맞춰 가는 개인화, AI가 무엇을 지켜보고 어떻게 움직일지를 전체 설정으로 맞추는 일은 IUA 지식에 아직 없다. 훑을 때는 '단위 없음 · 추론'으로 적는다.
+
+## 생성형 AI 디자인 원칙 6
+
+생성하는 AI에만 있는 성질을 다루는 원칙. 원칙마다 전략 넷이 딸려 모두 24개다. 문헌 검토 → 워크숍과 실무자 의견 → 실무자 18명이 상용 생성형 AI 도구 9개를 평가 → 제품 팀 워크숍 둘을 거쳐 다듬어졌다.
+
+출처: Weisz, J. D., He, J., Muller, M., Hoefer, G., Miles, R., & Geyer, W. (2024). Design Principles for Generative AI Applications. CHI 2024. arxiv.org/abs/2401.14484 · 확인: 원문 (2026-11-18) — 원칙 6개와 전략 24개의 이름, 만든 과정을 확인. 본문 뒤쪽(사례 적용 부분)은 읽지 않았다
+
+| 키 | 항목 | 원어 | 단위 |
+|---|---|---|---|
+| 생성AI-책임 | 책임 있게 디자인한다 (사람의 필요에서 시작하고, 해를 살핀다) | Design Responsibly | PR-024 |
+| 생성AI-달라짐 | 생성의 달라짐에 맞춰 디자인한다 | Design for Generative Variability | PR-038 |
+| 생성AI-멘탈모델 | 멘탈 모델에 맞춰 디자인한다 | Design for Mental Models | PR-035 · PR-031 · FA-015 |
+| 생성AI-함께만들기 | 함께 만들기에 맞춰 디자인한다 | Design for Co-Creation | PR-036 · PR-037 · ST-043 |
+| 생성AI-믿음 | 알맞은 믿음과 기댐에 맞춰 디자인한다 | Design for Appropriate Trust & Reliance | PR-039 · PR-035 · FA-021 · TN-009 |
+| 생성AI-불완전함 | 불완전함에 맞춰 디자인한다 | Design for Imperfection | PR-037 · PR-039 |
+
+'생성AI-책임'에 이은 PR-024는 속여 밀지 않는다는 한 면만 받친다. 해를 미리 살피고 지켜보는 일을 다루는 단위는 아직 없다.
