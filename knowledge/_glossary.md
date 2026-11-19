@@ -5,7 +5,7 @@
 - `python3 tools/iua.py find --text <낱말>`이 이 표도 찾는다 (우리말 · 원어 어느 쪽으로도).
 - 새 용어를 쓰면 여기에 한 줄 더한다. 출처는 그 용어를 쓴 단위의 출처 절에 있는 것만, 확인 상태(원문 · 2차)도 그 단위가 적은 그대로 옮긴다. 출처가 없는 용어는 싣지 않는다.
 - 단위 칸의 첫 번호가 그 용어를 정의하는 단위다. `check`가 없는 번호를 찾는다.
-- 순서: 서가 순 — 사람(지각 → 주의 → 기억 · 선택 · 움직임 → 실수 · 판단 → 모형) → 디자인 원리(휴리스틱 · 노먼 · 슈나이더만 · 도움말 · 신뢰) → 접근성 → 평가 방법 → 알리는 방식 → 생성형 AI.
+- 순서: 서가 순 — 사람(지각 → 주의 → 기억 · 선택 · 움직임 → 실수 · 판단 → 모형) → 디자인 원리(휴리스틱 · 노먼 · 슈나이더만 · 도움말 · 신뢰) → 접근성 → 평가 방법 → 알리는 방식 → 생성형 AI. 인지 · 행동 법칙의 용어는 사람 쪽 제자리에 끼워 넣었다.
 
 | 용어 | 원어 | 뜻 (한 줄) | 출처 | 단위 |
 |---|---|---|---|---|
@@ -27,18 +27,37 @@
 | 떠올리기 (회상) | recall | 단서 없이 기억에서 꺼내는 일 | Nielsen 1994 · 원문 | FA-001 · PR-001 |
 | 작업 기억 (단기 기억) | working memory · short-term memory | 지금 하는 일에 필요한 것을 잠깐 붙들고 있는 좁은 기억 | Miller 1956 · 2차; Cowan 2001 · 2차 | FA-003 · PR-001 · PR-009 |
 | 덩어리 (청크) | chunk | 기억이 하나로 붙드는 의미 단위 | Miller 1956 · 2차; Cowan 2001 · 2차 | FA-003 |
+| 머리에 드는 품 (인지 부하) | cognitive load | 화면을 이해하고 다루는 데 드는 머리 자원의 양 | Whitenton 2013 · 원문; Sweller 1988 · 2차 | FA-022 · PR-015 |
+| 일 자체에 드는 품 (내재적 부하) | intrinsic cognitive load | 새 내용을 받아들이고 목표를 붙드는 데 드는 품. 없앨 수 없다 | Whitenton 2013 · 원문 | FA-022 |
+| 일과 상관없이 드는 품 (외재적 부하) | extraneous cognitive load | 머리를 쓰게 하지만 내용을 이해하는 데 보탬이 되지 않는 품. 줄일 것 | Whitenton 2013 · 원문 | FA-022 |
+| 계열 위치 효과 | serial position effect | 차례로 본 것 가운데 처음과 마지막 것이 가장 잘 떠오른다 | Murdock 1962 · 2차 | FA-026 |
+| 처음 것의 이점 · 마지막 것의 이점 (초두 · 최신 효과) | primacy effect · recency effect | 처음 것은 오래 남고, 마지막 것의 이점은 잠깐 다른 일을 하면 사라진다 | Glanzer & Cunitz 1966 · 2차 | FA-026 |
+| 폰 레스토프 효과 (고립 효과) | von Restorff effect · isolation effect | 비슷한 것들 사이에서 하나만 다른 것이 더 잘 기억된다 | Hunt 1995 · 2차 | FA-029 · PR-003 |
 | 힉-하이먼 법칙 | Hick–Hyman law | 고를 것이 늘면 고르는 시간이 로그 꼴로 는다 | Hick 1952 · 2차; Hyman 1953 · 2차 | FA-002 · PR-002 |
+| 선택 과부하 | choice overload | 선택지가 많으면 고르기를 미루거나 덜 만족하기도 한다 (조건이 맞을 때) | Iyengar & Lepper 2000 · 2차; Scheibehenne 외 2010 · 2차; Chernev 외 2015 · 2차 | FA-030 · PR-002 |
 | 피츠의 법칙 | Fitts's law | 멀고 작은 목표일수록 누르는 데 오래 걸린다 | Fitts 1954 · 2차; MacKenzie 1992 · 2차 | FA-005 · PR-007 · PR-020 |
 | 자극-반응 호환성 | stimulus–response compatibility | 자극과 반응의 배치가 대응할수록 빨리 반응한다 | Fitts & Seeger 1953 · 2차 | PR-030 |
 | 응답 시간 한계 | response time limits | 0.1초 · 1초 · 10초에서 반응을 느끼는 방식이 바뀐다는 경험 규칙 | Nielsen 1993 · 2차; Card · Robertson · Mackinlay 1991 · 2차 | FA-008 · PR-010 · PR-011 |
+| 도허티 임계 | Doherty threshold | 응답이 0.4초 안이면 사람과 컴퓨터가 서로 기다리지 않아 일이 빨라진다는 주장 (0.4초라는 수는 원 보고서를 다시 실은 글에서 찾지 못함) | Yablonski (Laws of UX) · 원문; Doherty & Thadani 1982 · 2차 | FA-008 |
 | 헛손질 | slip | 뜻은 맞았는데 손이 빗나간 실수 | Reason 1990 · 2차; Norman 1988 · 2차 | FA-010 · PR-012 |
 | 깜빡 | lapse | 하려던 것을 잊은 실수 | Reason 1990 · 2차 | FA-010 |
 | 오판 | mistake | 상황을 잘못 읽어 뜻부터 틀린 실수 | Reason 1990 · 2차; Norman 1988 · 2차 | FA-010 · PR-013 |
 | 손실 회피 | loss aversion | 잃는 것이 같은 크기의 얻는 것보다 크게 느껴진다 | Kahneman & Tversky 1979 · 2차 | FA-011 · PR-014 |
 | 전망 이론 | prospect theory | 기준점에서 본 얻음과 잃음으로 선택을 설명하는 이론 | Kahneman & Tversky 1979 · 2차 | FA-011 |
 | 기본값 효과 | default effect | 사람들은 기본값을 대개 바꾸지 않고 그대로 둔다 | Johnson & Goldstein 2003 · 2차 | FA-012 · PR-017 |
+| 심미적 사용성 효과 | aesthetic-usability effect | 보기 좋은 것을 더 쓰기 쉽다고 여긴다 | Moran 2024 · 원문; Kurosu & Kashimura 1995 · 2차 | FA-024 |
+| 피크엔드 법칙 | peak–end rule | 지난 경험을 가장 센 순간과 마지막 순간으로 평가한다 | Kane 2018 · 원문; Kahneman 외 1993 · 2차 | FA-025 · PR-032 |
+| 목표 경사 효과 | goal-gradient effect | 목표에 가까울수록 그쪽으로 가는 노력이 커진다 | Kivetz 외 2006 · 2차 | FA-027 · PR-032 |
+| 미리 얹어 준 진행의 효과 | endowed progress effect | 진행을 미리 얹어 주면 끝까지 가는 사람이 늘고 빨라진다 | Nunes & Drèze 2006 · 2차 | FA-027 |
+| 자이가르닉 효과 | Zeigarnik effect | 끝내지 못한 일이 끝낸 일보다 더 잘 기억된다는 주장 (메타분석에서 나타나지 않음) | Ghibellini & Meier 2025 · 원문 | FA-028 |
+| 오브시안키나 효과 | Ovsiankina effect | 끊긴 일을 다시 이어 하려는 경향 | Ghibellini & Meier 2025 · 원문 | FA-028 · PR-021 |
+| 메타분석 | meta-analysis | 여러 연구의 결과를 모아 다시 셈하는 분석 | Ghibellini & Meier 2025 · 원문; Scheibehenne 외 2010 · 2차; Chernev 외 2015 · 2차 | FA-028 · FA-030 |
 | 멘탈 모델 | mental model | 사용자가 시스템이 어떻게 움직인다고 믿는 머릿속 모형 | Chan 2024 · 원문; Norman 1983 · 2차 | FA-015 · FA-009 · PR-031 |
 | 야콥의 법칙 | Jakob's Law | 사용자는 다른 사이트에서 대부분의 시간을 보내므로 그 방식을 기대한다 | Nielsen · 2차 | FA-009 · PR-008 |
+| 정보 채집 이론 | information foraging | 사람은 얻는 것과 드는 시간을 어림해 정보가 있는 곳을 고른다는 이론 | Pirolli & Card 1999 · 2차; Budiu 2020 · 원문 | FA-023 |
+| 정보 냄새 | information scent | 누르기 전에 그 길이 줄 값을 어림하게 하는 단서, 또는 그 어림 | Budiu 2020 · 원문; Pirolli & Card 1999 · 2차 | FA-023 · PR-040 · PR-005 |
+| 능동적 사용자의 역설 | paradox of the active user | 미리 배우면 이득인데도 설명을 읽지 않고 바로 써 본다 | Nielsen 1998 · 원문; Carroll & Rosson 1987 · 2차 | FA-031 · PR-027 |
+| 해내기를 앞세우는 버릇 · 아는 것에 비추어 풀이하는 버릇 | production paradox · assimilation paradox | 배우기보다 지금 일을 끝내려 하고, 새것을 이미 아는 것에 맞춰 풀이한다는 두 버릇 | Carroll & Rosson 1987 · 2차 | FA-031 |
 | 어포던스 | affordance | 사물과 행위자 사이에 가능한 행동 (사물의 속성이 아니라 관계) | Gibson 1979 · 2차; Norman 2008 · 원문 | FA-014 · PR-029 |
 | 사용성 휴리스틱 | usability heuristics | 구체적 지침이 아니라 넓은 어림 규칙으로 쓰는 사용성 원리 | Nielsen 1994 · 원문 | LN-009 · LN-013 |
 | 어림 규칙 | rules of thumb | 맞는 방향을 빠르게 짚는 경험 규칙 | Nielsen 1994 · 원문 | LN-009 |
@@ -53,6 +72,8 @@
 | 개념 모델 | conceptual model | 시스템이 어떻게 움직이는지 설명하는 모형 (디자인이 전하는 쪽) | Norman 2013 · 2차; Chan 2024 · 원문 | PR-031 · LN-010 |
 | 시스템 이미지 | system image | 화면 · 설명 · 이름표처럼 사용자가 시스템에서 보는 모든 것 | Norman 2013 · 미확인 | PR-031 |
 | 지름길 | accelerator · shortcut | 처음 쓰는 사람에게는 감춰지고 숙련자의 반복을 빠르게 하는 길 | Nielsen 1994 · 원문 | PR-026 |
+| 테슬러의 법칙 (복잡성 보존의 법칙) | Tesler's Law · Law of Conservation of Complexity | 줄일 수 없는 복잡함은 사라지지 않고 누군가 맡는다는 주장 | Tesler · 원문 | PR-041 |
+| 포스텔의 법칙 (견고함의 원칙) | Postel's Law · robustness principle | 받는 것은 너그럽게, 내보내는 것은 엄격하게 | Postel 1980 · 원문 | PR-042 |
 | 도움말과 문서 | help and documentation | 막혔을 때 찾아 쓰는 설명과 안내 | Nielsen 1994 · 원문; Kendrick 2020 · 원문 | PR-027 · ST-028 |
 | 먼저 건네는 도움 | proactive help | 막히기 전에 화면이 먼저 내미는 안내 | Kendrick 2020 · 원문 | PR-027 |
 | 찾아 나서는 도움 | reactive help | 막힌 뒤 사용자가 찾아 쓰는 도움 | Kendrick 2020 · 원문 | PR-027 |
